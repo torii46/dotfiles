@@ -42,9 +42,9 @@ os_detect() {
 is_osx() {
     os_detect
     if [[ $PLATFORM == "osx" ]]; then
-        return 1
-    else
         return 0
+    else
+        return 1
     fi
 }
 
@@ -52,9 +52,9 @@ is_osx() {
 is_linux() {
     os_detect
     if [[ $PLATFORM == "linux" ]]; then
-        return 1
-    else
         return 0
+    else
+        return 1
     fi
 }
 
@@ -62,9 +62,9 @@ is_linux() {
 is_bsd () {
     os_detect
     if [[ $PLATFORM == "bsd" ]]; then
-        return 1
-    else
         return 0
+    else
+        return 1
     fi
 }
 
