@@ -30,7 +30,7 @@ export PATH="$PATH":/usr/local/bin
 export PATH="$PATH:$HOME/Scripts/"
 
 # Golang settings
-export GOHOME="$HOME"
+export GOPATH="$HOME"
 export GOBIN="$HOME/bin"
 export PATH="$GOBIN:$PATH"
 
