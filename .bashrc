@@ -125,12 +125,13 @@ fi
 
 # path and export
 PATH=$PATH:"~/Scripts/"
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
+#export WORKON_HOME=$HOME/.virtualenvs
+#export PROJECT_HOME=$HOME/Devel
+#source /usr/local/bin/virtualenvwrapper.sh
 #export GOROOT="/usr/bin/"
 #export GOPATH=$HOME/go
 #export GOBIN=$GOPATH/bin
 #export PATH=$PATH:$GOPATH/bin
 
-export PATH=/usr/local/p/versions/python:$PATH
+#export PATH=/usr/local/p/versions/python:$PATH
+

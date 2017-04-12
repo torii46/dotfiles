@@ -1,0 +1,6 @@
+bundle
+snippets
+*swp
+*~
+.DS_Store
+**/.DS_Store

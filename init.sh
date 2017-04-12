@@ -5,3 +5,5 @@ for f in .??*; do
     [ "$f" = ".tmux.conf.osx" ] && continue
     ln -snfv $(pwd)"/$f" "$HOME"/"$f"
 done
+
+ln -s "$HOME/.vimrc" "$XDG_CONFIG_HOME/nvim"

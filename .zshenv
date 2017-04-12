@@ -1,6 +1,9 @@
 # Set .zshrc home directory
 export ZDOTDIR="$HOME/.zsh"
 
+# SET XDG Base Directory Specification HOME
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # SET LANGUAGE
 export LANGUAGE="en_US.utf8"
 export LANG="${LANGUAGE}"
