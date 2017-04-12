@@ -22,14 +22,14 @@ loadlib "$ZDOTDIR"/misc.zsh
 [[ -f $ZDOTDIR/.zshrc_$(ostype) ]] && . $ZDOTDIR/.zshrc_$(ostype)
 
 # Load Local dependencies of zsh settings if exists
-[[ -f $ZDOTDIR/.zshrc_$(ostype) ]] && . $ZDOTDIR/.zshrc_$(ostype)
+[[ -f $ZDOTDIR/.zshrc_local ]] && . $ZDOTDIR/.zshrc_local
 
 # Prompt settings
 autoload -Uz colors && colors
 
-local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
-local user_host="%{$terminfo[bold]$fg[green]%}%n@%m%{$reset_color%}"
-local current_dir="%{$terminfo[bold]$fg[blue]%} %~%{$reset_color%}"
+local return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
+local user_host="%{${terminfo[bold]}${fg[green]}%}%n@%m%{${reset_color}%}"
+local current_dir="%{${terminfo[bold]}${fg[blue]}%} %~%{${reset_color}%}"
 PROMPT="╭─${user_host} ${current_dir}
 %B$%b "
-RPS1="${return_code}"
+RPROMPT="${return_code} [%*]"

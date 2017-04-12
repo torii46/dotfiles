@@ -2,7 +2,7 @@
 setopt autocd
 
 # Try cd with a leading '~' if the directory not found 
-setopt cdable_vars
+setopt cdablevars
 
 # Always pushd when execute cd
 setopt auto_pushd
