@@ -42,8 +42,8 @@ export PATH="$GOBIN:$PATH"
 #export PROJECT_HOME=$HOME/Devel
 
 # History file and its size
-export HISTFIE=~/.zsh_history
-export HISTSIZE=100000
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=10000
 export SAVESIZE=100000
 export LISTMAX=50
 
