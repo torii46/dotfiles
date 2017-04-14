@@ -5,10 +5,11 @@ export ZDOTDIR="$HOME/.zsh"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # SET LANGUAGE
-export LANGUAGE="en_US.utf8"
+export LANGUAGE="en_US.UTF-8"
 export LANG="${LANGUAGE}"
 export LC_ALL="${LANGUAGE}"
 export LC_CTYPE="${LANGUAGE}"
+export LANGCHARSET="utf-8"
 
 # Pager
 export PAGER='less -s -M +Gg'

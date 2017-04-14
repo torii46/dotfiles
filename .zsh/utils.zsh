@@ -31,7 +31,7 @@ ostype(){
 os_detect() {
     case "$(ostype)" in
         *'linux'*)   PLATFORM='linux'   ;;
-        *'darwin'*)  PLATFORM='darwin'  ;;
+        *'darwin'*)  PLATFORM='osx'  ;;
         *'bsd'*)     PLATFORM='bsd'     ;;
         *)           PLATFORM='unknown' ;;
     esac

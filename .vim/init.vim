@@ -1,1 +1,1 @@
-/home/torii/.vimrc
+source ../.vimrc

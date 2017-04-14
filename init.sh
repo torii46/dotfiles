@@ -6,4 +6,4 @@ for f in .??*; do
     ln -snfv $(pwd)"/$f" "$HOME"/"$f"
 done
 
-ln -s "$HOME/.vimrc" "$XDG_CONFIG_HOME/nvim"
+ln -s "$HOME/.vim" "$XDG_CONFIG_HOME/nvim"
