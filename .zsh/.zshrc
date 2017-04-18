@@ -27,9 +27,31 @@ loadlib "$ZDOTDIR"/misc.zsh
 # Prompt settings
 autoload -Uz colors && colors
 
+local toggl_info='$(toggl_current)'
+toggl_current() {
+    local tgc=$(toggl --cache --csv current)
+    local tgc_time=$(echo $tgc | grep Duration | cut -d ',' -f 2)
+    local tgc_dsc=$(echo $tgc | grep Description | cut -d ',' -f 2 | cut -c 1-20)
+    local short_tgc_dsc=$(if [ $(echo $tgc_dsc | wc -m) -lt 20 ]; then echo $tgc_dsc; else echo "${tgc_dsc}.."; fi)
+    if [ ! -n "$tgc_time" ] ; then
+        echo "NoTimeEntry"
+    else
+        echo "[$tgc_time $short_tgc_dsc]"
+    fi
+}
+
 local return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
 local user_host="%{${terminfo[bold]}${fg[green]}%}%n@%m%{${reset_color}%}"
 local current_dir="%{${terminfo[bold]}${fg[blue]}%} %~%{${reset_color}%}"
-PROMPT="╭─${user_host} ${current_dir}
+local exit_code="%(?,,%{$fg[red]%}↪ %?%{$reset_color%})"
+PROMPT="\
+╭─${user_host} \
+${current_dir} \
+$(toggl_current) \
+$exit_code
 %B$%b "
-RPROMPT="${return_code} [%*]"
+
+# exec tmux if initial starting
+if [ $SHLVL = 1 ] && has "tmux" ; then
+    tmux
+fi

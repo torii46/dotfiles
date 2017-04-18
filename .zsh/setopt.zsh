@@ -49,6 +49,9 @@ setopt no_prompt_cr
 # Share history
 setopt share_history
 
+# Record start and end
+setopt extended_history
+
 # Do not recode an event already recorded.
 setopt hist_ignore_all_dups
 

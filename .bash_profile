@@ -1,6 +1,3 @@
-# Set .zshrc home directory
-export ZDOTDIR="$HOME/.zsh"
-
 # SET XDG Base Directory Specification HOME
 export XDG_CONFIG_HOME="$HOME/.config"
 
@@ -35,7 +32,7 @@ export PATH="$PATH":/usr/local/bin
 export PATH="$PATH:$HOME/Scripts/"
 
 # Golang settings
-export GOPATH="$HOME/.go"
+export GOPATH="$HOME"
 export GOBIN="$HOME/bin"
 export PATH="$GOBIN:$PATH"
 
@@ -43,8 +40,9 @@ export PATH="$GOBIN:$PATH"
 #export WORKON_HOME=$HOME/.virtualenvs
 #export PROJECT_HOME=$HOME/Devel
 
-# History file and its size
-export HISTFILE="$HOME"/.zsh_history
-export HISTSIZE=100000
-export SAVEHIST=100000
-export LISTMAX=50
+# About history
+export HISTFILE="$HOME"/.bash_history
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTCONTROL=ignoreboth
+export HISTIGNORE=history:exit:?

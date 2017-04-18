@@ -1,6 +1,5 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# general settings
+#############################################
 
 # If not running interactively, don't do anything
 case $- in
@@ -8,74 +7,137 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+# set a colored prompt
+PS1='╭─\[\e[1;32m\]\u@\h\[\e[1;34m\]$h \w\n\[\e[m\]$ '
+#PS1='╭─\u@\h\$h \w\n\$ '
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
+#
+# user specefic utility functions
+##############################################
+has() {
+    type "${1:?too few arguments}" &>/dev/null
+}
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+# ostype returns the lowercase OS name
+ostype(){
+    uname | tr "[:upper:]" "[:lower:]"
+}
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+# os_detect export the PLATFORM variable
+os_detect() {
+    case "$(ostype)" in
+        *'linux'*)   PLATFORM='linux'   ;;
+        *'darwin'*)  PLATFORM='osx'  ;;
+        *'bsd'*)     PLATFORM='bsd'     ;;
+        *)           PLATFORM='unknown' ;;
+    esac
+    export PLATFORM
+}
+
+# is_osx returns true if running OS is Mac
+is_osx() {
+    os_detect
+    if [[ $PLATFORM == "osx" ]]; then
+        return 0
     else
-	color_prompt=
+        return 1
     fi
-fi
+}
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+# is_linux returns true if running OS is Linux
+is_linux() {
+    os_detect
+    if [[ $PLATFORM == "linux" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+# is_bsd returns true if running OS is BSD
+is_bsd () {
+    os_detect
+    if [[ $PLATFORM == "bsd" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# echo_os echo OS name of running OS
+echo_os() {
+    local os
+    for os in osx linux bsd; do
+        if is_$os; then
+            echo $os
+        fi
+    done
+}
+
+#
+# user specefic useful functions
+##############################################
+
+# tac (reverse cat) like command
+reverse() {
+    if has "perl"; then
+        perl -e 'print reverse<>'
+    elif has "awk"; then
+        awk '{a[i++]=$0} END {for (j = i - 1; j >= 0;) print a[j--] }'
+    fi
+}
+
+# Proccess grep
+p() {
+    if [[ $# -gt 0 ]]; then
+        ps auxww | grep "$@" else
+        ps aux
+    fi
+}
+
+# History grep
+hgrep() {
+    if [ $# -gt 0 ]]; then
+        history | reverse | sort -k2 -u | sort | grep "$@"
+    else
+        history -50
+    fi
+}
+
+# Show weather cast
+weather() {
+    curl -4 "wttr.in/$1";
+}
+
+
+# Simple calc by bc
+calc() {
+    bc -l <<< "$@"
+}
+
+#
+# user specefic aliases
+##############################################
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if is_osx; then
+    alias ls='ls -FG'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+elif [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls --color=auto -F'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -84,29 +146,63 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# user specefic functions
-##############################################
-
-# some more ls aliases
+# Common aliases
+alias ..='cd ..'
 alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -aFl'      # Show files detail information
+alias la='ls -AF'       # Show hidden all files
+alias ld='ls -ld'       # Show directory info
+alias lx='ls -lXB'      # Sort by extention
+alias lc='ls -ltcr'     # Sort by and show change time, most recent last
+alias lu='ls -ltur'     # Sort by and show access time, most recent last
+alias lt='ls -ltr'      # Sort by date, most recent last
+alias lr='ls -lR'       # Recursive ls
+alias lsd='ls -F | grep /' # Show directory name one line by one line
+
+alias lesson='less -s -M +Gg'
+
+alias h='history'
+alias hd='history -d'
+alias hi='history -i'
+
+alias t='tree -C'
+
+alias jman='LANG=ja_JP.utf8 man'
+
+# Use if colordiff exists
+if has 'colordiff'; then
+    alias diff='colordiff -u'
+else
+    alias diff='diff -u'
+fi
+
+# alias open as mac-like open when linux
+if is_linux -a has 'xdg-open'; then
+    alias open='xdg-open'
+fi
+
+# Editor aliases
 alias emacs='emacs -nw'
 alias em='emacs'
+alias v='vim'
 alias vi='vim'
+alias vr='vim -R'
 alias g++='g++ -std=c++11'
-alias pip='sudo -H pip'
-alias sc='screen'
+
+#alias dic='sdcv'
+
+# Global alias
+alias L='| less'
+alias G='| grep'
+
+# Restart bashrc
+alias relogin="exec $SHELL -l"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -121,17 +217,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-
-# path and export
-PATH=$PATH:"~/Scripts/"
-#export WORKON_HOME=$HOME/.virtualenvs
-#export PROJECT_HOME=$HOME/Devel
-#source /usr/local/bin/virtualenvwrapper.sh
-#export GOROOT="/usr/bin/"
-#export GOPATH=$HOME/go
-#export GOBIN=$GOPATH/bin
-#export PATH=$PATH:$GOPATH/bin
-
-#export PATH=/usr/local/p/versions/python:$PATH
-

@@ -65,6 +65,7 @@ set ruler
 set expandtab
 set tabstop=4
 set autoindent
+set pumheight=10
 set hlsearch
 set shiftwidth=4
 set tags=~/.tags
@@ -72,13 +73,18 @@ set wildmenu
 set incsearch
 set background=dark
 set whichwrap=b,s,h,l,<,>,[,]
-set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+set nolist
+if has('persistent_undo')
+    set undodir=$HOME/.vim/undo
+    set undofile
+end
 
-highlight LineNr ctermfg=darkgray
+"highlight LineNr ctermfg=darkgray
 
 inoremap jj <Esc>
 nnoremap <C-]> g<C-]>
+nnoremap Y y$
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz

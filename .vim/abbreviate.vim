@@ -6,4 +6,5 @@ ab mapir map(int, raw_input().split())
 
 " Prevent typo
 ab abbriviate abbreviate
-ab recieve receive
+ab recieve receiv
+

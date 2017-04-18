@@ -6,7 +6,7 @@ else
 fi
 
 # Common aliases
-alias ..='.. cd'
+alias ..='cd ..'
 alias ll='ls -aFl'      # Show files detail information
 alias la='ls -AF'       # Show hidden all files
 alias ld='ls -ld'       # Show directory info
@@ -26,6 +26,10 @@ alias egrep='egrep --color=auto'
 alias t='tree -C'
 
 alias jman='LANG=ja_JP.utf8 man'
+
+alias h='history'
+alias hi='history -i'
+alias hd='history -d'
 
 # Use if colordiff exists
 if has 'colordiff'; then
@@ -53,10 +57,27 @@ alias g++='g++ -std=c++11'
 alias -g L='| less'
 alias -g G='| grep'
 
+# Restart zsh
+alias resource="source "$HOME"/.zshenv; source "$ZDOTDIR"/.zshrc"
+alias relogin="export ZDOTDIR="$HOME"; exec $SHELL -l"
+
+# todoist and toggle aliases
+alias tl='todoist --project-namespace --namespace --color list'
+alias ta='todoist add'
+alias tge='toggl stop'
 
 ###############################################################################
 # alias like functions
 ###############################################################################
+
+# tac (revese cat) like command
+reverse() {
+    if has "perl"; then
+        perl -e 'print reverse <>'
+    elif has ""; then
+        awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }'
+    fi
+}
 
 # Proccess grep
 p() {
@@ -67,9 +88,9 @@ p() {
 }
 
 # History grep
-h() {
+hgrep() {
     if [[ $# -gt 0 ]]; then
-        history | tac | sort -k2 -u | sort | grep "$@"
+        history | reverse | sort -k2 -u | sort | grep "$@"
     else
         history 50
     fi
@@ -147,3 +168,36 @@ SHELLSCRIPT
 }
 
 
+toggl-start-todoist () {
+    local selected_item_id=`todoist --project-namespace --namespace list | peco | cut -d ' ' -f 1`
+    if [ ! -n "$selected_item_id" ]; then
+        return 0
+    fi
+    local selected_item_content=`todoist --csv show ${selected_item_id} | grep Content | cut -d',' -f2- | sed s/\"//g`
+    if [ -n "$selected_item_content" ]; then
+        BUFFER="toggl start \"${selected_item_content}\""
+        CURSOR=$#BUFFER
+        zle accept-line
+    fi
+}
+zle -N toggl-start-todoist
+bindkey '^xts' toggl-start-todoist
+
+todoist-select-itemid() {
+    local selected_item_id=`todoist --project-namespace --namespace list | peco | cut -d ' ' -f 1`
+    if [ ! -n "$selected_item_id" ]; then
+        return 0
+    fi
+    BUFFER=${BUFFER}${selected_item_id}
+    CURSOR=$#BUFFER
+}
+zle -N todoist-select-itemid
+bindkey '^xti' todoist-select-itemid
+
+peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection

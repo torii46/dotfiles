@@ -6,4 +6,7 @@ for f in .??*; do
     ln -snfv $(pwd)"/$f" "$HOME"/"$f"
 done
 
+# make folder for vim undo record
+mkdir -p "$HOME/.vim/undo" &>/dev/null
+
 ln -s "$HOME/.vim" "$XDG_CONFIG_HOME/nvim"
