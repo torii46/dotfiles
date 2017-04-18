@@ -80,7 +80,7 @@ if has('persistent_undo')
     set undofile
 end
 
-"highlight LineNr ctermfg=darkgray
+highlight LineNr ctermfg=darkgray
 
 inoremap jj <Esc>
 nnoremap <C-]> g<C-]>

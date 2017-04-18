@@ -62,6 +62,7 @@ alias resource="source "$HOME"/.zshenv; source "$ZDOTDIR"/.zshrc"
 alias relogin="export ZDOTDIR="$HOME"; exec $SHELL -l"
 
 # todoist and toggle aliases
+alias todo='todoist'
 alias tl='todoist --project-namespace --namespace --color list'
 alias ta='todoist add'
 alias tge='toggl stop'

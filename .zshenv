@@ -26,18 +26,16 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export LESS='-R'
 
 # Add ~/bin to PATH
-export PATH=~/bin:"$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # Append /usr/local/bin to PATH
 export PATH="$PATH":/usr/local/bin
 
-# Append $HOME/Scripts to PATH
-export PATH="$PATH:$HOME/Scripts/"
-
 # Golang settings
+[ -e /usr/local/go ] && export GOROOT=/usr/local/go
 export GOPATH="$HOME/.go"
 export GOBIN="$HOME/bin"
-export PATH="$GOBIN:$PATH"
+[ "$GOBIN" != "$HOME/bin" ] && export PATH="$GOBIN:$PATH"
 
 # Python virtualenvs settings
 #export WORKON_HOME=$HOME/.virtualenvs
