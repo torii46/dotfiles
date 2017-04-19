@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/um003406/dotfiles/.vim'
-let g:netrw_dirhist_2='/Users/um003406/dotfiles'
-let g:netrw_dirhist_3='/Users/um003406/dotfiles/.vim'
-let g:netrw_dirhist_4='/Users/um003406/bin'
-let g:netrw_dirhist_5='/Users/um003406/procon/Contest/srm/651-675'
-let g:netrw_dirhist_6='/Users/um003406/procon/Contest/srm/651-675/665'

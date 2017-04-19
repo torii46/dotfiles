@@ -3,5 +3,6 @@ snippets
 undo
 *swp
 *~
+.netrwhist
 .DS_Store
 **/.DS_Store

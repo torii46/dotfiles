@@ -10,6 +10,7 @@ alias ..='cd ..'
 alias ll='ls -aFl'      # Show files detail information
 alias la='ls -AF'       # Show hidden all files
 alias ld='ls -ld'       # Show directory info
+alias l.='ls -d .*'     # Show only dotfiles
 alias lx='ls -lXB'      # Sort by extention
 alias lc='ls -ltcr'     # Sort by and show change time, most recent last
 alias lu='ls -ltur'     # Sort by and show access time, most recent last
@@ -17,7 +18,7 @@ alias lt='ls -ltr'      # Sort by date, most recent last
 alias lr='ls -lR'       # Recursive ls
 alias lsd='ls -F | grep /' # Show directory name one line by one line
 
-alias lesson='less -s -M +Gg'
+alias lesson='less -s -M +Gg'   # Less with line number and its percentage
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
