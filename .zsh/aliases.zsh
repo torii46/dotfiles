@@ -197,7 +197,7 @@ zle -N todoist-select-itemid
 bindkey '^xti' todoist-select-itemid
 
 peco-history-selection() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    BUFFER=`history -n 1 | tail | reverse |  awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle reset-prompt
 }
