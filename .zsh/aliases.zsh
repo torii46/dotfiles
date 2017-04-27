@@ -76,7 +76,7 @@ alias tge='toggl stop'
 reverse() {
     if has "perl"; then
         perl -e 'print reverse <>'
-    elif has ""; then
+    elif has "awk"; then
         awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }'
     fi
 }
@@ -197,7 +197,7 @@ zle -N todoist-select-itemid
 bindkey '^xti' todoist-select-itemid
 
 peco-history-selection() {
-    BUFFER=`history -n 1 | tail | reverse |  awk '!a[$0]++' | peco`
+    BUFFER=`history -n 1 | reverse |  awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle reset-prompt
 }
