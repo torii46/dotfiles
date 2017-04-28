@@ -42,6 +42,8 @@ syntax on
 colorscheme desert
 set t_Co=256
 set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,euc-jp,sjis,cp934,iso-2022-jp
 set scrolloff=5
 set backspace=indent,eol,start
 set vb t_vb=
