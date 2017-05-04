@@ -60,7 +60,7 @@ setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%K{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%K{red}+"
-zstyle ':vcs_info:*' formats "%K{green}%c%u[%b]%k"
+zstyle ':vcs_info:*' formats "%K{green}%F{white}%c%u[%b]%f%k"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT='${vcs_info_msg_0_}'
