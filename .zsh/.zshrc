@@ -32,7 +32,8 @@ local toggl_info='toggl_current'
 toggl_current() {
     local tgc=$(toggl --cache --csv current)
     local tgc_time=$(echo $tgc | grep Duration | cut -d ',' -f 2)
-    local tgc_dsc=$(echo $tgc | grep Description | cut -d ',' -f 2 | cut -c 1-20)
+    local tgc_dsc=$(echo $tgc | grep Description | cut -d ',' -f 2 )
+    # local tgc_dsc=$(echo $tgc | grep Description | cut -d ',' -f 2 | cut -c 1-20)
     local short_tgc_dsc=$(if [ $(echo $tgc_dsc | wc -m) -lt 20 ]; then echo $tgc_dsc; else echo "${tgc_dsc}.."; fi)
     if [ ! -n "$tgc_time" ] ; then
         echo "NoTimeEntry"
@@ -57,9 +58,9 @@ $exit_code
 autoload -Uz vcs_info
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+zstyle ':vcs_info:git:*' stagedstr "%K{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%K{red}+"
+zstyle ':vcs_info:*' formats "%K{green}%c%u[%b]%k"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT='${vcs_info_msg_0_}'
