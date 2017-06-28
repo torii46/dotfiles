@@ -32,6 +32,9 @@ alias h='history'
 alias hi='history -i'
 alias hd='history -d'
 
+alias netcat='nc'
+alias jupyterlab='jupyter lab'
+
 # Use if colordiff exists
 if has 'colordiff'; then
     alias diff='colordiff -u'

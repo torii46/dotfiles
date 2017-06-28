@@ -46,3 +46,7 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 export HISTCONTROL=ignoreboth
 export HISTIGNORE=history:exit:?
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/um003406/.sdkman"
+[[ -s "/Users/um003406/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/um003406/.sdkman/bin/sdkman-init.sh"
