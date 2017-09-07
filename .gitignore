@@ -1,3 +1,4 @@
 *.swp
 *zshrc_local
 *zcompdump
+*zcompcache

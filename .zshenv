@@ -39,10 +39,11 @@ export GOBIN="$HOME/bin"
 
 # Java settings
 [ is_osx ] && export JAVA_HOME=`/usr/libexec/java_home`
+export JAVA_OPTS=-Dfile.encoding=UTF-8
 export M2_HOME="/usr/local/lib/apache-maven-3.5.0/bin/"
 export PATH="$PATH:$M2_HOME"
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh" # GRADLE_HOME is set by this command
 
 # Python virtualenvs settings
 #export WORKON_HOME=$HOME/.virtualenvs

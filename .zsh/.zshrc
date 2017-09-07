@@ -28,44 +28,35 @@ loadlib "$ZDOTDIR"/misc.zsh
 
 autoload -Uz colors && colors
 
-local toggl_info='toggl_current'
-toggl_current() {
-    local tgc=$(toggl --cache --csv current)
-    local tgc_time=$(echo $tgc | grep Duration | cut -d ',' -f 2)
-    local tgc_dsc=$(echo $tgc | grep Description | cut -d ',' -f 2 )
-    # local tgc_dsc=$(echo $tgc | grep Description | cut -d ',' -f 2 | cut -c 1-20)
-    local short_tgc_dsc=$(if [ $(echo $tgc_dsc | wc -m) -lt 20 ]; then echo $tgc_dsc; else echo "${tgc_dsc}.."; fi)
-    if [ ! -n "$tgc_time" ] ; then
-        echo "NoTimeEntry"
-    else
-        echo "[$tgc_time $short_tgc_dsc]"
-    fi
-}
-
 local return_code="%(?..%{$fg[red]%}%?%{$reset_color%})"
 local user_host="%{${terminfo[bold]}${fg[green]}%}%n@%m%{${reset_color}%}"
 local current_dir="%{${terminfo[bold]}${fg[blue]}%} %~%{${reset_color}%}"
 local exit_code="%(?,,%{$fg[red]%}↪ %?%{$reset_color%})"
-precmd () { vcs_info }
-PROMPT='\
-╭─${user_host} \
-${current_dir} \
-$(toggl_current) \
-$exit_code
-%B$%b '
 
 # branch info
 autoload -Uz vcs_info
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%K{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%K{red}+"
-zstyle ':vcs_info:*' formats "%K{green}%F{white}%c%u[%b]%f%k"
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f%k"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
-RPROMPT='${vcs_info_msg_0_}'
+
+PROMPT='\
+╭─${user_host} \
+${current_dir} \
+${vcs_info_msg_0_} \
+$exit_code
+%B$%b '
 
 # exec tmux if initial starting
 if [ $SHLVL = 1 ] && has "tmux" ; then
-    tmux
+    # attach not attached tmux
+    not_attached_tmux=$(tmux ls | awk '$11!="(attached)"{print $1}' | sed "s/://g" | head -1)
+    if [ $not_attached_tmux != "" ]; then
+        tmux a -t $not_attached_tmux
+    else
+        tmux
+    fi
 fi

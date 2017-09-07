@@ -71,6 +71,12 @@ alias tl='todoist --project-namespace --namespace --color list'
 alias ta='todoist add'
 alias tge='toggl stop'
 
+# exec command with low load
+alias lowload='ionice -c 2 -n 7 nice -n 19'
+# -c 2：ディスクI/Oの実行優先度をベストエフォートで実行
+# -n 7：さらにこのコマンドの優先度を低くする
+# -n 19：プロセスの実行優先度を一番低くする
+
 ###############################################################################
 # alias like functions
 ###############################################################################
@@ -117,6 +123,16 @@ man2html_() {
     : ${1:?usage: man2html_ name|file}
     man -W ${1} >/dev/null || return
     sed '/^TROFF/s/-Tps/-Thtml/' /etc/man.conf | man -C /dev/fd/0 -t ${1}
+}
+
+# man include builtin commands
+man () {
+  case "$(type "$1")" in
+    *builtin*) command -p man zshbuiltins | less -p "^       $1";; # built-in
+    *[[?*]*) help "$1" | "${PAGER:-less}";;              # pattern
+    *) command -p man "$@";;  # something else, presumed to be an external command
+                              # or options for the man command or a section number
+  esac
 }
 
 # Shell script rich template generator
