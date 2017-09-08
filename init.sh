@@ -1,10 +1,13 @@
-#/bin/sh
+#!/bin/sh
+
 for f in .??*; do
     [ "$f" = ".git" ] && continue
     [ "$f" = ".DS_Store" ] && continue
     [ "$f" = ".tmux.conf.osx" ] && continue
     [ "$f" = "*.swp" ] && continue
-    ln -snfv $(pwd)"/$f" "$HOME"/"$f"
+    [ "$f" = ".gitignore" ] && continue
+    [ "$f" = ".gradle" ] && continue
+    ln -snfv "`pwd`/$f" "$HOME/$f"
 done
 
 # make folder for vim undo record
