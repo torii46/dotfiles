@@ -65,12 +65,6 @@ alias -g G='| grep'
 alias resource="source "$HOME"/.zshenv; source "$ZDOTDIR"/.zshrc"
 alias relogin="export ZDOTDIR="$HOME"; exec $SHELL -l"
 
-# todoist and toggle aliases
-alias todo='todoist'
-alias tl='todoist --project-namespace --namespace --color list'
-alias ta='todoist add'
-alias tge='toggl stop'
-
 # exec command with low load
 alias lowload='ionice -c 2 -n 7 nice -n 19'
 # -c 2：ディスクI/Oの実行優先度をベストエフォートで実行
@@ -187,33 +181,6 @@ main "$@"
 SHELLSCRIPT
     chmod +x "$1"
 }
-
-
-toggl-start-todoist () {
-    local selected_item_id=`todoist --project-namespace --namespace list | peco | cut -d ' ' -f 1`
-    if [ ! -n "$selected_item_id" ]; then
-        return 0
-    fi
-    local selected_item_content=`todoist --csv show ${selected_item_id} | grep Content | cut -d',' -f2- | sed s/\"//g`
-    if [ -n "$selected_item_content" ]; then
-        BUFFER="toggl start \"${selected_item_content}\""
-        CURSOR=$#BUFFER
-        zle accept-line
-    fi
-}
-zle -N toggl-start-todoist
-bindkey '^xts' toggl-start-todoist
-
-todoist-select-itemid() {
-    local selected_item_id=`todoist --project-namespace --namespace list | peco | cut -d ' ' -f 1`
-    if [ ! -n "$selected_item_id" ]; then
-        return 0
-    fi
-    BUFFER=${BUFFER}${selected_item_id}
-    CURSOR=$#BUFFER
-}
-zle -N todoist-select-itemid
-bindkey '^xti' todoist-select-itemid
 
 peco-history-selection() {
     BUFFER=`history -n 1 | reverse |  awk '!a[$0]++' | peco`
