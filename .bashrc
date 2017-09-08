@@ -125,6 +125,23 @@ calc() {
     bc -l <<< "$@"
 }
 
+# Convert man to html
+man2html_() {
+    : ${1:?usage: man2html_ name|file}
+    man -W ${1} >/dev/null || return
+    sed '/^TROFF/s/-Tps/-Thtml/' /etc/man.conf | man -C /dev/fd/0 -t ${1}
+}
+
+# useful man
+man () {
+  case "$(type -t "$1"):$1" in
+    builtin:*) help "$1" | "${PAGER:-less}";;     # built-in
+    *[[?*]*) help "$1" | "${PAGER:-less}";;       # pattern
+    *) command -p man "$@";;  # something else, presumed to be an external command
+                              # or options for the man command or a section number
+  esac
+}
+
 #
 # user specefic aliases
 ##############################################
@@ -196,11 +213,18 @@ alias L='| less'
 alias G='| grep'
 
 # Restart bashrc
+alias resource="source "$HOME"/.bash_profile; source "$HOME"/.bashrc"
 alias relogin="exec $SHELL -l"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# exec command with low load
+alias lowload='ionice -c 2 -n 7 nice -n 19'
+# -c 2：ディスクI/Oの実行優先度をベストエフォートで実行
+# -n 7：さらにこのコマンドの優先度を低くする
+# -n 19：プロセスの実行優先度を一番低くする
 
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
@@ -217,7 +241,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/um003406/.sdkman"
-[[ -s "/Users/um003406/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/um003406/.sdkman/bin/sdkman-init.sh"

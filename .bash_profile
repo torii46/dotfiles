@@ -32,9 +32,18 @@ export PATH="$PATH":/usr/local/bin
 export PATH="$PATH:$HOME/Scripts/"
 
 # Golang settings
-export GOPATH="$HOME"
+[ -e /usr/local/go ] && export GOROOT=/usr/local/go
+export GOPATH="$HOME/.go"
 export GOBIN="$HOME/bin"
-export PATH="$GOBIN:$PATH"
+[ "$GOBIN" != "$HOME/bin" ] && export PATH="$GOBIN:$PATH"
+
+# Java settings
+[ is_osx ] && export JAVA_HOME=`/usr/libexec/java_home`
+export JAVA_OPTS=-Dfile.encoding=UTF-8
+export M2_HOME="/usr/local/lib/apache-maven-3.5.0/bin/"
+export PATH="$PATH:$M2_HOME"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh" # GRADLE_HOME is set by this command
 
 # Python virtualenvs settings
 #export WORKON_HOME=$HOME/.virtualenvs
@@ -46,7 +55,3 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 export HISTCONTROL=ignoreboth
 export HISTIGNORE=history:exit:?
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/um003406/.sdkman"
-[[ -s "/Users/um003406/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/um003406/.sdkman/bin/sdkman-init.sh"
