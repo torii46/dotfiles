@@ -36,7 +36,6 @@ endfunction
 """"""""""""""""""""""""""""""
 
 filetype plugin indent on     " required!
-filetype indent on
 
 syntax on
 colorscheme desert

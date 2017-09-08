@@ -1,2 +1,3 @@
-set list
-set listchars=trail:-
+setlocal list
+setlocal listchars=trail:-
+setlocal foldmethod=manual
