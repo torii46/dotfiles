@@ -28,8 +28,8 @@ export LESS='-R'
 # Add ~/bin to PATH
 export PATH="$HOME/bin:$PATH"
 
-# Append /usr/local/bin to PATH
-export PATH="$PATH":/usr/local/bin
+# Append left /usr/local/bin to PATH
+export PATH=/usr/local/bin:"$PATH"
 
 # Golang settings
 [ -e /usr/local/go ] && export GOROOT=/usr/local/go

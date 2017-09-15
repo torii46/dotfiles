@@ -35,6 +35,9 @@ alias hd='history -d'
 alias netcat='nc'
 alias jupyterlab='jupyter lab'
 
+alias docker-login='(){ docker exec -it $1 bash -lc "su - $3" }'
+alias docker-rm-exited="docker rm $(docker ps -aq --filter='status=exited')"
+
 # Use if colordiff exists
 if has 'colordiff'; then
     alias diff='colordiff -u'
