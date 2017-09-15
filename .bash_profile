@@ -25,8 +25,8 @@ export LESS='-R'
 # Add ~/bin to PATH
 export PATH=~/bin:"$PATH"
 
-# Append /usr/local/bin to PATH
-export PATH="$PATH":/usr/local/bin
+# Append left /usr/local/bin to PATH
+export PATH=/user/local/bin:"$PATH"
 
 # Append $HOME/Scripts to PATH
 export PATH="$PATH:$HOME/Scripts/"

@@ -18,7 +18,7 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set a colored prompt
-PS1='╭─\[\e[1;32m\]\u@\h\[\e[1;34m\]$h \w\n\[\e[m\]$ '
+PS1='╭─\[\e[1;32m\]\u@\h(bash)\[\e[1;34m\]$h \w\n\[\e[m\]$ '
 #PS1='╭─\u@\h\$h \w\n\$ '
 
 #
@@ -185,6 +185,16 @@ alias hi='history -i'
 alias t='tree -C'
 
 alias jman='LANG=ja_JP.utf8 man'
+
+alias h='history'
+alias hi='history -i'
+alias hd='history -d'
+
+alias netcat='nc'
+alias jupyterlab='jupyter lab'
+
+alias docker-login='(){ docker exec -it $1 bash -lc "su - $3" }'
+alias docker-rm-exited="docker rm $(docker ps -aq --filter='status=exited')"
 
 # Use if colordiff exists
 if has 'colordiff'; then
