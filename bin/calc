@@ -1,0 +1,4 @@
+#!/bin/sh
+# Simple calc by bc
+
+bc -l <<< "$@"

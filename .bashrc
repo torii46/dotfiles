@@ -120,11 +120,6 @@ weather() {
 }
 
 
-# Simple calc by bc
-calc() {
-    bc -l <<< "$@"
-}
-
 # Convert man to html
 man2html_() {
     : ${1:?usage: man2html_ name|file}
@@ -135,8 +130,8 @@ man2html_() {
 # useful man
 man () {
   case "$(type -t "$1"):$1" in
-    builtin:*) help "$1" | "${PAGER:-less}";;     # built-in
-    *[[?*]*) help "$1" | "${PAGER:-less}";;       # pattern
+    builtin:*) help "$1" | ${PAGER:-less};;     # built-in
+    *[[?*]*) help "$1" | ${PAGER:-less};;       # pattern
     *) command -p man "$@";;  # something else, presumed to be an external command
                               # or options for the man command or a section number
   esac

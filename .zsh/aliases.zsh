@@ -109,12 +109,6 @@ weather() {
     curl -4 "wttr.in/$1";
 }
 
-
-# Simple calc by bc
-calc() {
-    bc -l <<< "$@"
-}
-
 # Convert man to html
 man2html_() {
     : ${1:?usage: man2html_ name|file}
@@ -126,63 +120,10 @@ man2html_() {
 man () {
   case "$(type "$1")" in
     *builtin*) command -p man zshbuiltins | less -p "^       $1";; # built-in
-    *[[?*]*) help "$1" | "${PAGER:-less}";;              # pattern
+    *[[?*]*) run-help "$1" | "${PAGER:-less}";;              # pattern
     *) command -p man "$@";;  # something else, presumed to be an external command
                               # or options for the man command or a section number
   esac
-}
-
-# Shell script rich template generator
-new-script() {
-    cat <<'SHELLSCRIPT' > "$1"
-#!/bin/sh
-usage() {
-    cat <<HELP
-NAME:
-   $0 -- {one sentence description}
-
-SYNOPSIS:
-  $0 [-h|--help]
-  $0 [--verbose]
-
-DESCRIPTION:
-   {description here}
-
-  -h  --help      Print this help.
-      --verbose   Enables verbose mode.
-
-EXAMPLE:
-  {examples if any}
-
-HELP
-}
-
-main() {
-    SCRIPT_DIR="$(cd $(dirname "$0"); pwd)"
-
-    for ARG; do
-        case "$ARG" in
-            --help) usage; exit 0;;
-            --verbose) set -x;;
-            --) break;;
-            -*) 
-                OPTIND=1
-                while getopts h OPT "$ARG"; do
-                    case "$OPT" in
-                        -h) usage; exit 0;;
-                    esac
-                done
-                ;;
-        esac
-    done
-
-    # do something
-}
-
-main "$@"
-
-SHELLSCRIPT
-    chmod +x "$1"
 }
 
 peco-history-selection() {

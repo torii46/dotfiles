@@ -8,7 +8,7 @@ augroup filetypedetect
     au BufRead,BufNewFile *.rb    setfiletype ruby
     au BufRead,BufNewFile *.php   setfiletype php
     au BufRead,BufNewFile *.pl    setfiletype perl
-    au BufRead,BufNewFile *.sh    setfiletype bash 
+    au BufRead,BufNewFile *.sh    setfiletype sh 
     au BufRead,BufNewFile *.c     setfiletype c
     au BufRead,BufNewFile *.cpp   setfiletype cpp
     au BufRead,BufNewFile *.cc    setfiletype cpp
