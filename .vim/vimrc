@@ -1,0 +1,5 @@
+" Note: Skip initilization for vim-tiny or vim small.
+" fnamemodify(expand('<sfile>'), ':h') return the directory this script exist
+if 1
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/rc/vimrc'
+endif

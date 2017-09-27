@@ -1,5 +1,6 @@
-*.swp
+*swp
 *zshrc_local
 *zcompdump
 *zcompcache
 .gradle
+.cache
