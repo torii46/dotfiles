@@ -1,16 +1,24 @@
 #!/bin/sh
 #Shell script rich template generator
 
+if [ ! $? -eq 1]; then
+  echo "usage: `basename $0` file-name"
+  exit 1
+elif [ -e "$1" ]; then
+  echo "$1 is already exsist. exit" 
+  exit 1
+fi
+
 cat <<'SHELLSCRIPT' > "$1"
 #!/bin/sh
 usage() {
-    cat <<HELP
+cat <<HELP
 NAME:
-   $0 -- {one sentence description}
+   `basename $0` -- {one sentence description}
 
 SYNOPSIS:
-  $0 [-h|--help]
-  $0 [--verbose]
+  `basename $0` [-h|--help]
+  `basename $0` [--verbose]
 
 
 DESCRIPTION:
@@ -51,4 +59,4 @@ main "$@"
 
 SHELLSCRIPT
 
- chmod +x "$1"
+chmod +x "$1"

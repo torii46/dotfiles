@@ -1,6 +1,3 @@
 #!/bin/sh
 
-LF=$(printf '\\\012_')
-LF=${LF%_}
-
-echo "$PATH" | sed "s/:/$LF/g"
+echo "$PATH" | tr ':' '\n' 
