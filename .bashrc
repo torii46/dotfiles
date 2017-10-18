@@ -188,6 +188,8 @@ alias hd='history -d'
 alias netcat='nc'
 alias jupyterlab='jupyter lab'
 
+alias crontab='crontab -i'
+
 alias docker-login='(){ docker exec -it $1 bash -lc "su - $3" }'
 alias docker-rm-exited="docker rm $(docker ps -aq --filter='status=exited')"
 
@@ -230,6 +232,11 @@ alias lowload='ionice -c 2 -n 7 nice -n 19'
 # -c 2：ディスクI/Oの実行優先度をベストエフォートで実行
 # -n 7：さらにこのコマンドの優先度を低くする
 # -n 19：プロセスの実行優先度を一番低くする
+
+# mics
+alias my-ip='curl http://ifconfig.io'
+
+###################################################################
 
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
