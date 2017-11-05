@@ -37,8 +37,8 @@ alias jupyterlab='jupyter lab'
 
 alias crontab='crontab -i'
 
-alias docker-login='(){ docker exec -it $1 bash -lc "su - $3" }'
-alias docker-rm-exited="docker rm $(docker ps -aq --filter='status=exited')"
+#alias docker-login='(){ docker exec -it $1 bash -lc "su - $3" }'
+#alias docker-rm-exited="docker rm $(docker ps -aq --filter='status=exited')"
 
 # Use if colordiff exists
 if has 'colordiff'; then
@@ -139,6 +139,16 @@ peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
+peco-src() {
+    local selected_dir=$(ghq list -p | sed "s@$HOME/src/@@g" | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
 
 # search
 _keyword-and-nize() {

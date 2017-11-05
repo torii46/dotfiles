@@ -38,7 +38,7 @@ export GOBIN="$HOME/bin"
 [ "$GOBIN" != "$HOME/bin" ] && export PATH="$GOBIN:$PATH"
 
 # Java settings
-[ is_osx ] && export JAVA_HOME=`/usr/libexec/java_home`
+[[ $(ostype) == 'darwin' ]] && export JAVA_HOME=`/usr/libexec/java_home`
 export JAVA_OPTS=-Dfile.encoding=UTF-8
 export M2_HOME="/usr/local/lib/apache-maven-3.5.0/bin/"
 export PATH="$PATH:$M2_HOME"
