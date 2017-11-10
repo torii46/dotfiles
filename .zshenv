@@ -54,3 +54,11 @@ export HISTFILE="$HOME"/.zsh_history
 export HISTSIZE=100000
 export SAVEHIST=100000
 export LISTMAX=50
+
+## Set path for pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+if [ -d "${PYENV_ROOT}" ]; then
+    export PATH=${PYENV_ROOT}/bin:$PATH
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi

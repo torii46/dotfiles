@@ -142,7 +142,7 @@ bindkey '^R' peco-history-selection
 peco-src() {
     local selected_dir=$(ghq list -p | sed "s@$HOME/src/@@g" | peco --query "$LBUFFER")
     if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
+        BUFFER="cd $HOME/src/${selected_dir}"
         zle accept-line
     fi
     zle clear-screen
