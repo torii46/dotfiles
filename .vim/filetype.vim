@@ -15,4 +15,5 @@ augroup filetypedetect
     au BufRead,BufNewFile *.go    setfiletype go 
     au BufRead,BufNewFile *.swift setfiletype swift
     au BufRead,BufNewFile *.rs    setfiletype rust
+    au BufRead,BufNewFile nginx*.conf    setfiletype nginx
 augroup END

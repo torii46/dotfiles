@@ -12,3 +12,6 @@ repo = 'thinca/vim-ft-diff_fold'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
+
+[[plugins]]
+repo = 'vim-scripts/nginx.vim'

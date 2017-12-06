@@ -224,3 +224,8 @@ ls_abbrev() {
         echo "$ls_result"
     fi
 }
+
+# echo <args> | pbcopy
+echopy() {
+    echo "$@" | pbcopy
+}

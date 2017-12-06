@@ -1,11 +1,11 @@
 #!/bin/sh
 #Shell script rich template generator
 
-if [ ! $? -eq 1]; then
+if [ ! $# -eq 1 ]; then
   echo "usage: `basename $0` file-name"
   exit 1
 elif [ -e "$1" ]; then
-  echo "$1 is already exsist. exit" 
+  echo "$1 already exsists. exit" 
   exit 1
 fi
 

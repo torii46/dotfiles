@@ -38,7 +38,7 @@ export GOBIN="$HOME/bin"
 [ "$GOBIN" != "$HOME/bin" ] && export PATH="$GOBIN:$PATH"
 
 # Java settings
-[[ $(ostype) == 'darwin' ]] && export JAVA_HOME=`/usr/libexec/java_home`
+[[ $(uname) == 'Darwin' ]] && export JAVA_HOME=`/usr/libexec/java_home`
 export JAVA_OPTS=-Dfile.encoding=UTF-8
 export M2_HOME="/usr/local/lib/apache-maven-3.5.0/bin/"
 export PATH="$PATH:$M2_HOME"
@@ -56,9 +56,10 @@ export SAVEHIST=100000
 export LISTMAX=50
 
 ## Set path for pyenv
+export PATH="$HOME/.pyenv/shims/:$PATH"
 export PYENV_ROOT="${HOME}/.pyenv"
 if [ -d "${PYENV_ROOT}" ]; then
-    export PATH=${PYENV_ROOT}/bin:$PATH
+    export PATH="${PYENV_ROOT}/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
