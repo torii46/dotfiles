@@ -117,7 +117,9 @@ inoremap <C-d> <Delete>
 function! ImInActivate()
   call system('fcitx-remote -c')
 endfunction
-inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
+if has('unix')
+    inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
+endif
 
 nnoremap <C-]> g<C-]>
 nnoremap Y y$
