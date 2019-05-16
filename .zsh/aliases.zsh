@@ -229,3 +229,8 @@ ls_abbrev() {
 echopy() {
     echo "$@" | pbcopy
 }
+
+# https://github.com/chubin/cheat.sh
+cht.sh() {
+    curl cht.sh/"$@"
+}

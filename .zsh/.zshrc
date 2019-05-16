@@ -60,3 +60,4 @@ if [ $SHLVL = 1 ] && has "tmux" ; then
         tmux
     fi
 fi
+

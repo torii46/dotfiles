@@ -3,6 +3,7 @@ ab #d #define
 ab #i #include
 ab -*- -*- coding: utf-8 -*-
 ab mapir map(int, raw_input().split())
+ab pdb; import pdb; pdb.set_trace()
 
 " Prevent typo <wrong> <correct>
 ab abbriviate abbreviate

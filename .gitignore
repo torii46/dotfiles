@@ -4,3 +4,5 @@
 *zcompcache
 .gradle
 .cache
+.idea
+.DS_Store

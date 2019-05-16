@@ -63,3 +63,6 @@ if [ -d "${PYENV_ROOT}" ]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
+
+## gloud settings
+if [ -d "$HOME/google-cloud-sdk" ]; then export PATH="$PATH:$HOME/google-cloud-sdk/bin"; fi

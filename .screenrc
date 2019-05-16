@@ -1,17 +1,31 @@
-defutf8 on
-defencoding utf8
-encoding utf-8 utf-8
-
-escape ^j^j
-
-startup_message off
-autodetach on
-vbell off
-
-caption always "%-w%10L>%{=b bw}%n %t%{-}%+w%-0="
-hardstatus alwayslastline "%H%=%Y/%m/%d %02c"
-shelltitle "$ |shell"
-
-termcapinfo xram* ti@:te@
-
-shell $SHELL
+"hello"
+ls
+0xff
+1e308
+1.3
+10000000000000000000000000000000000000
+1000000000000000000000
+100000000000000
+10000000000
+10000000000.toLong()
+(10000000000).toLong()
+10000000000000000L
+100000000000000000000000000000000L
+100000000000000000000000000000000B
+9223372036854775807L
+9223372036854775808L
+9223372036854775807
+9223372036854775807.7
+1.0 == 1
+1.00000000000000000000000001 == 1
+"\u3042"
+1 + 2
+1 + 2.0
+3/2
+3/2.0*2
+val x = 2*3
+x = 3
+3950000*1.023*8/12
+3950000*0.023*8/12
+val u = new User("dwango", 1111)
+User.printUser(u)
