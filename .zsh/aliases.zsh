@@ -231,6 +231,6 @@ echopy() {
 }
 
 # https://github.com/chubin/cheat.sh
-cht.sh() {
+cheat() {
     curl cht.sh/"$@"
 }
