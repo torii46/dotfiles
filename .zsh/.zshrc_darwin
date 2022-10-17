@@ -1,3 +1,6 @@
 alias chrome='open -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias firefox='open -a /Applications/Firefox.app/Contents/MacOS/firefox'
 alias safari='open -a /Applications/Safari.app/Contents/MacOS/Safari'
+if type gln > /dev/null 2>&1; then
+    alias ln='gln'
+fi

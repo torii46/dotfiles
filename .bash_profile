@@ -59,4 +59,4 @@ export HISTIGNORE=history:exit:?
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
-export PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
