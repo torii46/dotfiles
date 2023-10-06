@@ -31,6 +31,8 @@ export PATH="$HOME/bin:$PATH"
 # Append left /usr/local/bin to PATH
 export PATH=/usr/local/bin:"$PATH"
 
+export PATH="$PATH:$HOME/.local/bin"
+
 # Golang settings
 [ -e /usr/local/go ] && export GOROOT=/usr/local/go
 export GOPATH="$HOME/.go"

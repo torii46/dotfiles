@@ -19,10 +19,10 @@ loadlib "$ZDOTDIR"/setopt.zsh
 loadlib "$ZDOTDIR"/misc.zsh
 
 # Load OS dependencies of zsh settings if exists
-[[ -f $ZDOTDIR/.zshrc_$(ostype) ]] && . $ZDOTDIR/.zshrc_$(ostype)
+loadlib "$ZDOTDIR"/.zshrc_$(ostype)
 
 # Load Local dependencies of zsh settings if exists
-[[ -f $ZDOTDIR/.zshrc_local ]] && . $ZDOTDIR/.zshrc_local
+loadlib "$ZDOTDIR"/.zshrc_local
 
 # Prompt settings
 
